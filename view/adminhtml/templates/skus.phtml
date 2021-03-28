@@ -1,0 +1,10 @@
+<?php
+/** @var \Hyva\Admin\ViewModel\HyvaGrid\CellInterface $cell */
+
+$orderItems = $cell->getRawValue();
+
+foreach ($orderItems as $orderItem) :
+?>
+    <?= __('%1x %2', (int) $orderItem->getQtyOrdered(), $orderItem->getSku()) ?><br>
+<?php
+endforeach;

@@ -1,0 +1,26 @@
+<?php
+/** @var \Hyva\Admin\ViewModel\HyvaGrid\CellInterface $cell */
+
+if ($cell->getRawValue()[0]) {
+    $firstName = $cell
+        ->getRawValue()[0]
+        ->getShipping()
+        ->getAddress()
+        ->getFirstname();
+    $lastName = $cell
+        ->getRawValue()[0]
+        ->getShipping()
+        ->getAddress()
+        ->getLastname();
+} else {
+    $firstName = $cell
+        ->getRow()
+        ->getCell('customer_firstname')
+        ->getTextValue();
+    $lastName = $cell
+        ->getRow()
+        ->getCell('customer_lastname')
+        ->getTextValue();
+}
+
+echo "$firstName $lastName";

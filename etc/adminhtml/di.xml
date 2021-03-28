@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="MediaLounge\OrderGrid\Model\CollectionProcessor\JoinProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\JoinProcessor">
+        <arguments>
+            <argument name="customJoins" xsi:type="array">
+                <item name="soi.skus" xsi:type="object">MediaLounge\OrderGrid\Model\CollectionProcessor\JoinProcessor\OrderSkus</item>
+            </argument>
+            <argument name="fieldMapping" xsi:type="array">
+                <item name="soi.skus" xsi:type="string">soi.skus</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MediaLounge\OrderGrid\Model\CollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="join" xsi:type="object">MediaLounge\OrderGrid\Model\CollectionProcessor\JoinProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Sales\Model\OrderRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">MediaLounge\OrderGrid\Model\CollectionProcessor</argument>
+        </arguments>
+    </type>
+</config>

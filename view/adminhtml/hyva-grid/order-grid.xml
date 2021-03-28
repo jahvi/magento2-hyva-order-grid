@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<grid xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Hyva_Admin:etc/hyva-grid.xsd">
+    <source>
+        <repositoryListMethod>Magento\Sales\Api\OrderRepositoryInterface::getList</repositoryListMethod>
+    </source>
+    <columns>
+        <include>
+            <column name="increment_id" label="ID" />
+            <column name="store_id" label="Purchase Point" type="store_id" renderAsUnsecureHtml="true" />
+            <column name="created_at" label="Purchase Date" type="datetime" />
+            <column name="customer_firstname" label="Bill-to Name" template="MediaLounge_OrderGrid::billing-name.phtml" />
+            <column name="shipping_assignments" label="Ship-to Name" template="MediaLounge_OrderGrid::shipping-name.phtml" />
+            <column name="base_grand_total" label="Grand Total (Base)" type="price" />
+            <column name="grand_total" label="Grand Total (Purchased)" type="price" />
+            <column name="status" template="MediaLounge_OrderGrid::status.phtml" />
+            <column name="items" label="SKUs" template="MediaLounge_OrderGrid::skus.phtml" />
+        </include>
+    </columns>
+    <actions idColumn="entity_id">
+        <action id="view" label="View" url="sales/order/view" idParam="order_id" />
+        <action id="reorder" label="Clone as Quote" url="amasty_quote/quote_create/fromOrder" idParam="order_id" />
+    </actions>
+    <massActions idColumn="entity_id" idsParam="selected">
+        <action id="cancel" label="Cancel" url="*/*/massCancel" />
+        <action id="hold" label="Hold" url="*/*/massHold" />
+        <action id="unhold" label="Unhold" url="*/*/massUnhold" />
+        <action id="pdfinvoices_order" label="Print Invoices" url="*/*/pdfinvoices" />
+        <action id="pdfshipments_order" label="Print Packing Slips" url="*/*/pdfshipments" />
+        <action id="pdfcreditmemos_order" label="Print Credit Memos" url="*/*/pdfcreditmemos" />
+        <action id="pdfdocs_order" label="Print All" url="*/*/pdfdocs" />
+        <action id="fooman_pdforders" label="Print Orders" url="fooman_printorderpdf/order/pdforders" />
+        <action id="print_shipping_label" label="Print Shipping Labels" url="adminhtml/order_shipment/massPrintShippingLabel" />
+        <action id="ship_order" label="Ship with Shiptheory" url="shiptheory/sales_order/massShipOrder" />
+    </massActions>
+    <navigation>
+        <sorting>
+            <defaultSortByColumn>created_at</defaultSortByColumn>
+            <defaultSortDirection>desc</defaultSortDirection>
+        </sorting>
+        <filters>
+            <filter column="increment_id" />
+            <filter column="store_id" source="Magento\Config\Model\Config\Source\Store" />
+            <filter column="created_at" />
+            <filter column="customer_firstname" />
+            <filter column="shipping_assignments" />
+            <filter column="base_grand_total" filterType="Hyva\Admin\Model\GridFilter\ValueRangeFilter" />
+            <filter column="grand_total" filterType="Hyva\Admin\Model\GridFilter\ValueRangeFilter" />
+            <filter column="status" source="Magento\Sales\Ui\Component\Listing\Column\Status\Options" />
+            <filter column="items" />
+        </filters>
+    </navigation>
+</grid>

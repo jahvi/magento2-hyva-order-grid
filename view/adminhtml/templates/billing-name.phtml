@@ -1,0 +1,10 @@
+<?php
+/** @var \Hyva\Admin\ViewModel\HyvaGrid\CellInterface $cell */
+
+$firstName = $cell->getTextValue();
+$lastName = $cell
+    ->getRow()
+    ->getCell('customer_lastname')
+    ->getTextValue();
+
+echo "$firstName $lastName";
